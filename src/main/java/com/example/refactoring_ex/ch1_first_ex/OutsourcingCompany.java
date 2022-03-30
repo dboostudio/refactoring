@@ -27,21 +27,28 @@ public class OutsourcingCompany {
 
         for(Perf perf : invoice.getPerformances()){
 
-            // 포인트를 적립한다.
-            volumeCredits += Math.max(perf.getAudience() - 30, 0);
-
-            // 희극 관객 5명마다 추가 포인트를 제공한다.
-            if(forPlay(perf).getType() == "comedy")
-                volumeCredits += (int) Math.floor(perf.getAudience() / 5);
-
             // 청구 내역을 출력한다.
             result += " - " + forPlay(perf).getName() + ": " + format(amountFor(perf)) + " " + perf.getAudience() + "석\n";
             totalAmount += amountFor(perf);
         }
 
+        for(Perf perf : invoice.getPerformances()) {
+            volumeCredits += volumeCreditsFor(perf);
+        }
+
         result += "총액 : " + format(totalAmount) + "\n";
         result += "적립 포인트 : " + volumeCredits + "점\n";
 
+        return result;
+    }
+
+    private Integer volumeCreditsFor(Perf perf) throws Exception {
+        // 포인트를 적립한다.
+        Integer result = Math.max(perf.getAudience() - 30, 0);
+
+        // 희극 관객 5명마다 추가 포인트를 제공한다.
+        if (forPlay(perf).getType() == "comedy")
+            result += (int) Math.floor(perf.getAudience() / 5);
         return result;
     }
 
