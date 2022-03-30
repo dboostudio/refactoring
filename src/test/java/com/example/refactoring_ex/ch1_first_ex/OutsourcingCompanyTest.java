@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 class OutsourcingCompanyTest {
 
@@ -38,9 +40,19 @@ class OutsourcingCompanyTest {
                 .performances(perfList)
                 .build();
 
-        String result = company.statement(invoice, playList);
+        company.setInvoice(invoice);
+        company.setPlayList(playList);
+
+        String result = company.statement();
 
         System.out.println(result);
+
+        assertThat(result).isEqualTo("청구내역(고객명: BigCo)\n" +
+                " - hamlet: ₩650 55석\n" +
+                " - As You Like It: ₩580 35석\n" +
+                " - Othello: ₩500 40석\n" +
+                "총액 : ₩1,730\n" +
+                "적립 포인트 : 47점\n");
     }
 
 }
