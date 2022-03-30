@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-@Component
 @Setter
+@Component
 public class OutsourcingCompany {
 
     private Invoice invoice;
