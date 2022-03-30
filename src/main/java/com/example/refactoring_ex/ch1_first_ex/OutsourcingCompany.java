@@ -19,7 +19,10 @@ public class OutsourcingCompany {
     NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);
 
     public String statement() throws Exception{
+        return renderPlainText();
+    }
 
+    private String renderPlainText() throws Exception {
         String result = "청구내역(고객명: "+invoice.getCustomer()+")\n";
 
         totalAmount();
