@@ -20,6 +20,8 @@ public class OutsourcingCompany {
 
     public String statement() throws Exception{
         StatementData statementData = new StatementData();
+        statementData.setCustomer(invoice.getCustomer());
+        statementData.setPerformances(invoice.getPerformances());
         return renderPlainText(statementData);
     }
 
@@ -31,15 +33,15 @@ public class OutsourcingCompany {
             result += " - " + forPlay(perf).getName() + ": " + usd(amountFor(perf)) + " " + perf.getAudience() + "석\n";
         }
 
-        result += "총액 : " + usd(totalAmount()) + "\n";
+        result += "총액 : " + usd(totalAmount(data)) + "\n";
         result += "적립 포인트 : " + totalVolumeCredits() + "점\n";
 
         return result;
     }
 
-    private Integer totalAmount() throws Exception {
+    private Integer totalAmount(StatementData data) throws Exception {
         Integer totalAmount = 0;
-        for(Perf perf : invoice.getPerformances()) {
+        for(Perf perf : data.getPerformances()) {
             totalAmount += amountFor(perf);
         }
         return totalAmount;
