@@ -39,10 +39,8 @@ class OutsourcingCompanyTest {
                 .build();
 
         String result = company.statement(invoice, playList);
+
         System.out.println(result);
-
-
-
     }
 
 }
