@@ -24,9 +24,7 @@ public class OutsourcingCompany {
     }
 
     private String renderPlainText(StatementData data) throws Exception {
-        String result = "청구내역(고객명: "+invoice.getCustomer()+")\n";
-
-        totalAmount();
+        String result = "청구내역(고객명: "+data.getCustomer()+")\n";
 
         for(Perf perf : invoice.getPerformances()) {
             // 청구 내역을 출력한다.
