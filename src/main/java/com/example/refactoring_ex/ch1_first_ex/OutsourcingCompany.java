@@ -21,25 +21,26 @@ public class OutsourcingCompany {
     public String statement() throws Exception{
 
         Integer totalAmount = 0;
-        Integer volumeCredits = 0;
-
         String result = "청구내역(고객명: "+invoice.getCustomer()+")\n";
 
         for(Perf perf : invoice.getPerformances()){
-
             // 청구 내역을 출력한다.
             result += " - " + forPlay(perf).getName() + ": " + format(amountFor(perf)) + " " + perf.getAudience() + "석\n";
             totalAmount += amountFor(perf);
         }
 
+        result += "총액 : " + format(totalAmount) + "\n";
+        result += "적립 포인트 : " + totalVolumeCredits() + "점\n";
+
+        return result;
+    }
+
+    private Integer totalVolumeCredits() throws Exception {
+        Integer volumeCredits = 0;
         for(Perf perf : invoice.getPerformances()) {
             volumeCredits += volumeCreditsFor(perf);
         }
-
-        result += "총액 : " + format(totalAmount) + "\n";
-        result += "적립 포인트 : " + volumeCredits + "점\n";
-
-        return result;
+        return volumeCredits;
     }
 
     private Integer volumeCreditsFor(Perf perf) throws Exception {
